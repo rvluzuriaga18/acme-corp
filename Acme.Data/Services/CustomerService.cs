@@ -6,7 +6,7 @@ using Acme.Data.Interfaces;
 
 namespace Acme.Data.Services
 {
-    public class CustomerRepository: ICustomer
+    public class CustomerService: ICustomer
     {
         public OperationResult<List<Customer>> GetAllCustomers()
         {

@@ -14,7 +14,7 @@ namespace Acme.WebAPI.Controllers
         //Constructor
         public CustomerController()
         {
-            _icustomer = new CustomerRepository();
+            _icustomer = new CustomerService();
         }
 
         [HttpGet]

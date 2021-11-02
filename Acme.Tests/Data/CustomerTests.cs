@@ -13,7 +13,7 @@ namespace Acme.Tests.Data
 
         public CustomerTests()
         {
-            icustomer = new CustomerRepository();
+            icustomer = new CustomerService();
         }
 
         [TestMethod]
