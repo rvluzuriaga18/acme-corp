@@ -35,6 +35,24 @@ namespace Acme.WebAPI.Controllers
         }
 
         [HttpGet]
+        [Route("api/Customer/GetCustomerPageList")]
+        public IHttpActionResult GetCustomerPageList(int pageNo, int pageSize)
+        {
+            try
+            {
+                var totalCount = 0;
+                var data = _icustomer.GetCustomerPageList(out totalCount, pageNo, pageSize);
+                if (!data.IsSuccess) throw new Exception(data.Message);
+
+                return Ok( new { result = data.Result , totalCount = totalCount});
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("api/Customer/GetCustomerByID")]
         public IHttpActionResult GetCustomerByID(long id)
         {

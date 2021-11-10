@@ -22,6 +22,31 @@ namespace Acme.Data.Services
             { return OperationResult<List<Customer>>.Failed(ex.ToString()); }
         }
 
+        public OperationResult<List<Customer>> GetCustomerPageList(out int totalCount, int pageNo, int pageSize)
+        {
+            try
+            {
+                using (var db = new AcmeCorpContext())
+                {
+                   var customers = db.Customers.AsQueryable();
+
+                   var result  = customers.OrderBy(x => x.CustomerID)
+                                             .Skip((pageNo - 1) * pageSize)
+                                             .Take(pageSize)
+                                             ?.ToList();
+
+                    totalCount = (customers.Any() ? customers.Count() : 0);
+
+                    return OperationResult<List<Customer>>.Success(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                totalCount = 0;
+                return OperationResult<List<Customer>>.Failed(ex.ToString());
+            }
+        }
+
         public OperationResult<Customer> GetCustomerByCustomerID(long customerID)
         {
             try
